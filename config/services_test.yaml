@@ -1,0 +1,2 @@
+services:
+    App\Domain\ItemRepositoryInterface: '@App\Repository\Memory\ItemRepository'

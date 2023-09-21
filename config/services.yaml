@@ -11,3 +11,5 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+
+    App\Domain\ItemRepositoryInterface: '@App\Repository\Doctrine\ItemRepository'
