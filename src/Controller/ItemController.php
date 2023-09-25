@@ -12,9 +12,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class ItemController extends AbstractController
 {
 	#[Route('/items', methods: ['GET'])]
-	public function list(ItemRepositoryInterface $itemRepository): JsonResponse
+	public function list(Request $request, ItemRepositoryInterface $itemRepository): JsonResponse
 	{
-		return $this->json($itemRepository->loadAll());
+		$titleFilter = $request->query->getString('titleFilter');
+		$items = $titleFilter ? $itemRepository->loadFilteredByTitle($titleFilter) : $itemRepository->loadAll();
+
+		return $this->json($items);
 	}
 
 	#[Route('/items', methods: ['POST'])]

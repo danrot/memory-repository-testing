@@ -25,4 +25,14 @@ class ItemRepository implements ItemRepositoryInterface
 	{
 		return $this->items;
 	}
+
+	public function loadFilteredByTitle(string $titleFilter): array
+	{
+		return array_values(
+			array_filter(
+				$this->items,
+				fn (Item $item) => str_contains($item->getTitle(), $titleFilter),
+			),
+		);
+	}
 }

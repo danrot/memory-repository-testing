@@ -29,4 +29,18 @@ class ItemRepository implements ItemRepositoryInterface
 			->getResult()
 		;
 	}
+
+	public function loadFilteredByTitle(string $titleFilter): array
+	{
+		/** @var Item[] */
+		return $this->entityManager
+			->createQueryBuilder()
+			->from(Item::class, 'i')
+			->select('i')
+			->where('i.title LIKE :titleFilter')
+			->setParameter('titleFilter', $titleFilter . '%')
+			->getQuery()
+			->getResult()
+		;
+	}
 }

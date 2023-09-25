@@ -10,4 +10,9 @@ interface ItemRepositoryInterface
 	 * @return Item[]
 	 */
 	public function loadAll(): array;
+
+	/**
+	 * @return Item[]
+	 */
+	public function loadFilteredByTitle(string $titleFilter): array;
 }

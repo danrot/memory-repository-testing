@@ -47,4 +47,25 @@ abstract class AbstractItemRepositoryTest extends KernelTestCase
 		$this->assertContains($item1, $items);
 		$this->assertContains($item2, $items);
 	}
+
+	public function testLoadFilteredByTitle(): void
+	{
+		$itemRepository = $this->createItemRepository();
+
+		$item1 = new Item('Test title 1', 'Test description 1');
+		$item2 = new Item('Title 2', 'Description 2');
+		$item3 = new Item('Test title 3', 'Test description 2');
+
+		$itemRepository->add($item1);
+		$itemRepository->add($item2);
+		$itemRepository->add($item3);
+
+		$this->flush();
+
+		$items = $itemRepository->loadFilteredByTitle('Test title');
+
+		$this->assertCount(2, $items);
+		$this->assertContains($item1, $items);
+		$this->assertContains($item3, $items);
+	}
 }
